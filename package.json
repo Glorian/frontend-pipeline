@@ -1,6 +1,6 @@
 {
   "name": "frontend-pipeline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple Gulp & Webpack frontend builder",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/glorian/frontend-builder"
+    "url": "https://github.com/glorian/frontend-pipeline"
   },
   "keywords": [
     "gulp",
