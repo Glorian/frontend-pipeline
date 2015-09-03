@@ -1,5 +1,5 @@
 {
-  "name": "frontend-builder",
+  "name": "frontend-pipeline",
   "version": "1.0.0",
   "description": "Simple Gulp & Webpack frontend builder",
   "main": "index.js",
