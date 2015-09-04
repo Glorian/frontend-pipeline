@@ -33,13 +33,16 @@ var partial = function(Config) {
 	    },
 	    entry: {
 	    	vendor: Config.get('js.defaultVendors'),
-	    	bundle: ['./app']
+	    	bundle: Config.get('js.entry')
 	    },
 	    output: {
 			path: Config.getPath('public.js.outputFolder'),
 			filename: filename,
 			publicPath: Config.get('js.outputFolder')
 	    },
+        resolveLoader: {
+            root: path.join(path.dirname(module.filename), '../..', 'node_modules')
+        },
 	    module: {
 	      loaders: [
 	        { test: Config.get('js.loaders.babel.pattern'), loader: 'babel?' + loaders.babel, exclude: Config.get('js.loaders.babel.exclude') },

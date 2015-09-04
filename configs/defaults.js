@@ -64,6 +64,7 @@ var config = {
 		folder: 'js',
 		outputFolder: 'js',
 		defaultVendors: [],
+        entry: ['./app'],
 		globalVars: {},
 		loaders: {
 			babel: {

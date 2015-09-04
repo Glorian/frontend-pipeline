@@ -46,9 +46,7 @@ var runTasks = function() {
 		if(_.contains(gulp.task, task.name)) return;
 
 		gulp.task(task.name, function() {
-			gulp = Builder.Task.find(task.name).run();
-
-			return gulp;
+            return Builder.Task.find(task.name).run();
 		});
 	});
 };

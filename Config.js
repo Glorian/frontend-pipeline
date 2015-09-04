@@ -23,8 +23,12 @@ var Config = function () {
  * @private
  */
 Config.prototype._requireConfigs = function () {
+    var parent = module.parent,
+        parentFile = parent.filename,
+        parentDir = p.dirname(parentFile);
+
     require('fs')
-        .readdirSync(this.folder)
+        .readdirSync(p.resolve(parentDir, this.folder))
         .forEach(this._requireConfigFile.bind(this));
 };
 
