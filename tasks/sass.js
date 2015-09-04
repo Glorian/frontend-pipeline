@@ -1,6 +1,6 @@
 var gulp            = require('gulp');
 var errorsHandler   = require('../lib/handleErrors');
-var Capitalize      = require('../lib/capitilizeFirstLetter');
+var Capitalize      = require('../lib/capitalizeFirstLetter');
 var Builder         = require('../');
 
 var $               = Builder.Plugins;

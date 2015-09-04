@@ -2,7 +2,7 @@ var path 					= require('path');
 var gutils 					= require('gulp-util');
 var webpack 				= require('webpack');
 var BowerWebpackPlugin 		= require('bower-webpack-plugin');
-var ManifestWebpackPlugin 	= require('webpack-manifest-plugin');
+var ManifestWebpack         = require('../../lib/webpackManifest');
 
 /**
  * Configuration partial for Webpack module
@@ -79,9 +79,10 @@ var partial = function(Config) {
 		*/
 		if(production) {
 			webpackConfig.plugins.push(
-				new ManifestWebpackPlugin({
-					basePath: path.join(Config.get('js.outputFolder'), '/')
-				}),
+                new ManifestWebpack({
+                    publicPath: Config.get('js.outputFolder'),
+                    dest: path.join( Config.get('publicPath'), Config.get('versioning.buildFolder') )
+                }),
 				new webpack.DefinePlugin({
 					'process.env': {
 					  'NODE_ENV': JSON.stringify('production')
