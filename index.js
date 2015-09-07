@@ -45,8 +45,8 @@ var runTasks = function() {
 	tasks.forEach(function(task) {
 		if(_.contains(gulp.task, task.name)) return;
 
-		gulp.task(task.name, function() {
-            return Builder.Task.find(task.name).run();
+		gulp.task(task.name, function(done) {
+            return Builder.Task.find(task.name).run(done);
 		});
 	});
 };

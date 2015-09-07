@@ -1,14 +1,34 @@
 var gulp = require('gulp');
-var Builder = require('../');
 var webpack = require('webpack');
 var logger = require('../lib/webpackLogger');
+var Builder = require('../');
 
-Builder.addTask('webpack', function() {
-    var compiler = webpack(Builder.config.get('js.webpack'));
-    var watch = !! Builder.config.get('js.webpack.watching');
+/**
+ * Webpack compiler task
+ *
+ * @param done
+ */
+var webpackTask = function (done) {
+    var compiler = webpack(Builder.config.get('js.webpack')),
+        watch = !!Builder.config.get('js.webpack.watching');
+
+    var webpackCallback = function (err, stats) {
+        logger(err, stats);
+
+        !watch && done();
+    };
 
     watch
-        ? compiler.watch(100, logger)
-        : compiler.run(logger);
-})
-.watch();
+        ? compiler.watch(100, webpackCallback)
+        : compiler.run(webpackCallback);
+};
+
+/**
+ * Push webpack task to gulp tasks queue
+ * and make it watchable
+ */
+Builder
+    .addTask('webpack', webpackTask)
+    .watch(true)
+    .order(5)
+    .parallel(true);

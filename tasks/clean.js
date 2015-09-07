@@ -1,9 +1,13 @@
-var gulp        = require('gulp');
-var Builder     = require('../');
-var del         = require('del');
+var gulp = require('gulp');
+var Builder = require('../');
+var del = require('del');
 
-gulp.task('clean', function () {
-    del([
-        Builder.config.get('publicPath')
-    ]);
-});
+var cleanTask = function (done) {
+    return (
+        del(Builder.config.get('publicPath'), done)
+    );
+};
+
+Builder
+    .addTask('clean', cleanTask)
+    .order(1);

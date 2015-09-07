@@ -1,15 +1,20 @@
-var gulp            = require('gulp');
-var errorsHandler   = require('../lib/handleErrors');
-var Capitalize      = require('../lib/capitalizeFirstLetter');
-var Builder         = require('../');
+var gulp = require('gulp');
+var _ = require('lodash');
+var errorsHandler = require('../lib/handleErrors');
+var Builder = require('../');
 
-var $               = Builder.Plugins;
-var config          = Builder.config;
-var srcPath         = config.getPath('assets.css.sass.folder') + '/**/*.+(sass|scss)';
-var outputPath      = config.getPath('public.css.outputFolder');
+var $ = Builder.Plugins;
+var config = Builder.config;
+var srcPath = config.getPath('assets.css.sass.folder') + '/**/*.+(sass|scss)';
+var outputPath = config.getPath('public.css.outputFolder');
 
-Builder.addTask('sass', function () {
-    var name = Capitalize(this.name);
+/**
+ * Compile sass styles
+ *
+ * @returns {*}
+ */
+var sassTask = function () {
+    var name = _.capitalize(this.name);
 
     this.log(srcPath, outputPath);
 
@@ -27,5 +32,11 @@ Builder.addTask('sass', function () {
             .pipe(gulp.dest(outputPath))
             .pipe(new Builder.Notification(name + ' Compiled!'))
     );
-})
-.watch(srcPath);
+};
+
+Builder
+    .addTask('sass', sassTask)
+    .watch(srcPath)
+    .order(4)
+    .parallel(true)
+    .group(true);

@@ -1,17 +1,13 @@
-var gulp        = require('gulp');
-var _           = require('lodash');
-var Builder     = require('../');
-var inSequence  = require('run-sequence');
+var gulp = require('gulp');
+var _ = require('lodash');
+var Builder = require('../');
+var inSequence = require('run-sequence');
+var taskSequence = require('../lib/taskSequence');
 
-gulp.task('default', function() {
-    var args = [];
+gulp.task('default', function (cb) {
+    var args = taskSequence(Builder.tasks);
 
-    args.push('clean');
-    args.push(_.pluck(Builder.tasks, 'name'));
-
-    if (Builder.config.get('production')) {
-        args.push('revision');
-    }
+    args.push(cb);
 
     inSequence.apply(this, args);
 });

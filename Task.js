@@ -11,6 +11,10 @@ var Builder;
 var Task = function (name, description) {
     this.name = name;
     this.watchers = [];
+    this.ordering = 999;
+    this.parallels = false;
+    this.parallelGroup = false;
+    this.development = false;
 
     if (description) {
         this.describe(description);
@@ -24,7 +28,7 @@ var Task = function (name, description) {
  * @returns {*}
  */
 Task.find = function (name) {
-    var tasks = _.where(Builder.tasks, { name: name });
+    var tasks = _.where(Builder.tasks, {name: name});
 
     return tasks[Builder.config.get('activeTasks.' + name)];
 };
@@ -75,6 +79,53 @@ Task.prototype.watch = function (regex, category) {
 };
 
 /**
+ * Set execution order of the task
+ *
+ * @param {int} order
+ * @returns {Task}
+ */
+Task.prototype.order = function (order) {
+    this.ordering = _.parseInt(order);
+
+    return this;
+};
+
+/**
+ * Set parallel behavior
+ *
+ * @param {boolean} parallel
+ * @returns {Task}
+ */
+Task.prototype.parallel = function (parallel) {
+    this.parallels = !!parallel;
+
+    return this;
+};
+
+/**
+ * Set marker that points us to start new sequence group
+ *
+ * @param newGroup
+ */
+Task.prototype.group = function (newGroup) {
+    this.parallelGroup = !!newGroup;
+
+    return this;
+};
+
+/**
+ * Set task
+ *
+ * @param devOnly
+ * @returns {Task}
+ */
+Task.prototype.dev = function (devOnly) {
+    this.development = !!devOnly;
+
+    return this;
+};
+
+/**
  * Exclude path from watcher
  *
  * @param path
@@ -91,8 +142,8 @@ Task.prototype.ignore = function (path) {
  *
  * @returns {*}
  */
-Task.prototype.run = function () {
-    return this.definition();
+Task.prototype.run = function (done) {
+    return this.definition(done);
 };
 
 /**
