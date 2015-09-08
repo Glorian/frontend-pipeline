@@ -21,5 +21,4 @@ var revisionTask = function (done) {
 
 Builder
     .addTask('revision', revisionTask)
-    .dev(true)
-    .order(6);
+    .dev(true);

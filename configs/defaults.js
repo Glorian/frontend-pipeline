@@ -45,6 +45,9 @@ var config = {
                 cascade: false
             }
         },
+        styles: {
+            concatFilename: 'styles.css'
+        },
         sass: {
             folder: 'sass',
 
