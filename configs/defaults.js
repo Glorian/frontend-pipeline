@@ -52,9 +52,7 @@ var config = {
             folder: 'sass',
 
             options: {
-                outputStyle: gutils.env.production
-                    ? 'compressed'
-                    : 'nested'
+                outputStyle: gutils.env.production ? 'compressed' : 'nested'
             }
         },
         less: {

@@ -12,17 +12,17 @@ var outputPath = config.getPath('public.fonts.outputFolder');
  *
  * @returns {*}
  */
-var fontsTask = function () {
+var fontsTask = function() {
     var name = _.capitalize(this.name);
 
     this.log(srcPath, outputPath);
 
     return (
         gulp
-            .src(srcPath)
-            .pipe($.changed(outputPath)) // Ignore unchanged files
-            .pipe(gulp.dest(outputPath))
-            .pipe(new Builder.Notification(name + ' Copied!'))
+        .src(srcPath)
+        .pipe($.changed(outputPath)) // Ignore unchanged files
+        .pipe(gulp.dest(outputPath))
+        .pipe(new Builder.Notification(name + ' Copied!'))
     );
 };
 

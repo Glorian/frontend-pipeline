@@ -1,5 +1,5 @@
-var p       = require('path');
-var _       = require('lodash');
+var p = require('path');
+var _ = require('lodash');
 
 /**
  * Main Config class
@@ -7,7 +7,7 @@ var _       = require('lodash');
  * @returns {Config}
  * @constructor
  */
-var Config = function () {
+var Config = function() {
     this.config = require('./configs/defaults');
     this.folder = './configs/partials/';
 
@@ -22,7 +22,7 @@ var Config = function () {
  *
  * @private
  */
-Config.prototype._requireConfigs = function () {
+Config.prototype._requireConfigs = function() {
     var parent = module.parent,
         parentFile = parent.filename,
         parentDir = p.dirname(parentFile);
@@ -38,7 +38,7 @@ Config.prototype._requireConfigs = function () {
  * @param file
  * @private
  */
-Config.prototype._requireConfigFile = function (file) {
+Config.prototype._requireConfigFile = function(file) {
     this.config = _.merge(this.config, require(this.folder + file)(this));
 };
 
@@ -48,10 +48,8 @@ Config.prototype._requireConfigFile = function (file) {
  * @param path
  * @returns {*}
  */
-Config.prototype.get = function (path) {
-    return path == '*'
-        ? this.config
-        : _.get(this.config, path);
+Config.prototype.get = function(path) {
+    return path == '*' ? this.config : _.get(this.config, path);
 };
 
 /**
@@ -60,7 +58,7 @@ Config.prototype.get = function (path) {
  * @param {string} path
  * @param {string|object} value
  */
-Config.prototype.set = function (path, value) {
+Config.prototype.set = function(path, value) {
     this._requireConfigs();
 
     this.config = _.set(this.config, path, value);
@@ -72,7 +70,7 @@ Config.prototype.set = function (path, value) {
  * @param path
  * @returns {string|*}
  */
-Config.prototype.getPath = function (path) {
+Config.prototype.getPath = function(path) {
     var basePath,
         current = this.config,
         segments = path.split('.');
@@ -81,7 +79,7 @@ Config.prototype.getPath = function (path) {
         basePath = this.config[segments.shift() + 'Path'];
     }
 
-    segments.forEach(function (segment) {
+    segments.forEach(function(segment) {
         current = current[segment];
     });
 

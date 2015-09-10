@@ -7,7 +7,7 @@ var Builder = require('../');
  *
  * @param done
  */
-var revisionTask = function (done) {
+var revisionTask = function(done) {
     var args = [];
 
     args.push('revision:css');

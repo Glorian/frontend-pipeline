@@ -8,7 +8,7 @@ var config = Builder.config;
 /**
  * Update asset references with revisioned filenames in compiled css + js
  */
-gulp.task('revision:replace', function () {
+gulp.task('revision:replace', function() {
     var outputFolder = config.get('publicPath'),
         manifest = gulp.src(path.join(config.getPath('public.versioning.buildFolder'), 'rev-manifest.json'));
 

@@ -6,11 +6,11 @@ var notify = require('gulp-notify');
  * @constructor
  */
 var Notification = function() {
-	this.title = 'SLT Builder';
+    this.title = 'SLT Builder';
 
-	if (arguments.length) {
-		return this.message(arguments[0]);
-	}
+    if (arguments.length) {
+        return this.message(arguments[0]);
+    }
 };
 
 var n = Notification.prototype;
@@ -22,11 +22,11 @@ var n = Notification.prototype;
  * @returns {*}
  */
 n.message = function(message) {
-	return notify({
-		title: this.title,
-		message: message,
-		onLast: true
-	});
+    return notify({
+        title: this.title,
+        message: message,
+        onLast: true
+    });
 };
 
 /**
@@ -36,14 +36,14 @@ n.message = function(message) {
  * @param message
  */
 n.error = function(e, message) {
-	notify.onError({
-		title: this.title,
-		message: message + ': <%= error.message %>',
-		icon: __dirname + '/icons/fail.png',
-		onLast: true
-	})(e);
+    notify.onError({
+        title: this.title,
+        message: message + ': <%= error.message %>',
+        icon: __dirname + '/icons/fail.png',
+        onLast: true
+    })(e);
 
-	console.log(e);
+    console.log(e);
 };
 
 /**
@@ -79,4 +79,3 @@ n.forFailedTests = function(e, framework) {
 
 
 module.exports = Notification;
-

@@ -13,7 +13,7 @@ var outputPath = config.getPath('public.images.outputFolder');
  *
  * @returns {*}
  */
-var imagesTask = function () {
+var imagesTask = function() {
     var name = _.capitalize(this.name),
         options = config.get('images.options');
 
@@ -26,11 +26,11 @@ var imagesTask = function () {
 
     return (
         gulp
-            .src(srcPath)
-            .pipe($.changed(outputPath)) // Ignore unchanged files
-            .pipe($.imagemin(options)) // Optimize
-            .pipe(gulp.dest(outputPath))
-            .pipe(new Builder.Notification(name + ' Optimized!'))
+        .src(srcPath)
+        .pipe($.changed(outputPath)) // Ignore unchanged files
+        .pipe($.imagemin(options)) // Optimize
+        .pipe(gulp.dest(outputPath))
+        .pipe(new Builder.Notification(name + ' Optimized!'))
     );
 };
 

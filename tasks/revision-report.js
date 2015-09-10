@@ -6,7 +6,7 @@ var Builder = require('../');
 var $ = Builder.Plugins;
 var config = Builder.config;
 
-gulp.task('revision:report', function () {
+gulp.task('revision:report', function() {
     var files = '/**/*-' + _.repeat('[a-z,0-9]', 8) + '*.*';
 
     gulp

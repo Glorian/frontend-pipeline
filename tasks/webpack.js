@@ -8,11 +8,11 @@ var Builder = require('../');
  *
  * @param done
  */
-var webpackTask = function (done) {
+var webpackTask = function(done) {
     var compiler = webpack(Builder.config.get('js.webpack')),
         watch = !!Builder.config.get('js.webpack.watching');
 
-    var webpackCallback = function (err, stats) {
+    var webpackCallback = function(err, stats) {
         logger(err, stats);
 
         !watch && done();

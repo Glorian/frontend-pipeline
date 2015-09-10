@@ -7,20 +7,20 @@ var config = Builder.config;
 var srcPath = config.getPath('assets.css.folder') + '/**/*.css';
 var publicPath = config.getPath('public.css.outputFolder');
 
-var stylesTask = function () {
+var stylesTask = function() {
     var name = _.capitalize(this.name);
 
     this.log(srcPath, publicPath);
 
     return (
         gulp
-            .src(srcPath)
-            .pipe($.if(config.get('sourcemaps'), $.sourcemaps.init()))
-            .pipe($.concat(config.get('css.styles.concatFilename')))
-            .pipe($.if(config.get('production'), $.minifyCss()))
-            .pipe($.if(config.get('sourcemaps'), $.sourcemaps.write()))
-            .pipe(gulp.dest(publicPath))
-            .pipe(new Builder.Notification(name + ' concatenated!'))
+        .src(srcPath)
+        .pipe($.if(config.get('sourcemaps'), $.sourcemaps.init()))
+        .pipe($.concat(config.get('css.styles.concatFilename')))
+        .pipe($.if(config.get('production'), $.minifyCss()))
+        .pipe($.if(config.get('sourcemaps'), $.sourcemaps.write()))
+        .pipe(gulp.dest(publicPath))
+        .pipe(new Builder.Notification(name + ' concatenated!'))
     );
 };
 

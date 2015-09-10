@@ -4,7 +4,7 @@ var Builder = require('../');
 var inSequence = require('run-sequence');
 var taskSequence = require('../lib/taskSequence');
 
-gulp.task('default', function (cb) {
+gulp.task('default', function(cb) {
     var args = taskSequence(Builder.tasks);
 
     args.push(cb);

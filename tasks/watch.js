@@ -3,7 +3,7 @@ var _ = require('lodash');
 var Builder = require('../');
 var $ = Builder.Plugins;
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
     var tasks = _.sortBy(Builder.tasks, 'name');
     var mergedTasks = {};
 
@@ -13,7 +13,7 @@ gulp.task('watch', function () {
         gulp.start('webpack');
     }
 
-    tasks.forEach(function (task) {
+    tasks.forEach(function(task) {
         if (task.name == 'webpack') return;
 
         if (task.name in mergedTasks) {
@@ -26,16 +26,16 @@ gulp.task('watch', function () {
         };
     });
 
-    _.sortBy(mergedTasks, 'name').forEach(function (task) {
+    _.sortBy(mergedTasks, 'name').forEach(function(task) {
         if (task.watchers.length > 0) {
-            $.watch(task.watchers, $.batch(Builder.config.get('batchOptions'), function (events) {
+            $.watch(task.watchers, $.batch(Builder.config.get('batchOptions'), function(events) {
                 events.on('end', gulp.start(task.name));
             }));
         }
     });
 });
 
-var isWatchingWebpack = function (tasks) {
+var isWatchingWebpack = function(tasks) {
     var webpackTask = _.find(tasks, 'name', 'webpack');
 
     if (webpackTask) {

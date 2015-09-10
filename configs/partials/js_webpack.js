@@ -9,7 +9,7 @@ var ManifestWebpack = require('../../lib/webpackManifest');
  *
  * @param Config
  */
-var partial = function (Config) {
+var partial = function(Config) {
     var production = Config.get('production');
     var filename = production ? '[name]-[hash].js' : '[name].js';
     var loaders = {
@@ -44,22 +44,23 @@ var partial = function (Config) {
             root: path.join(path.dirname(module.filename), '../..', 'node_modules')
         },
         module: {
-            loaders: [
-                {
-                    test: Config.get('js.loaders.babel.pattern'),
-                    loader: 'babel?' + loaders.babel,
-                    exclude: Config.get('js.loaders.babel.exclude')
-                },
-                {test: /.(css|scss)$/, loader: 'style!css!sass'},
-                {test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/, loader: 'file?name=[name].[ext]'},
-                {
-                    test: /\.(jpe?g|png|gif|svg)$/i,
-                    loaders: [
-                        'file?hash=sha512&digest=hex&name=[hash].[ext]',
-                        'image-webpack?{bypassOnDebug: true, progressive: true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
-                    ]
-                }
-            ]
+            loaders: [{
+                test: Config.get('js.loaders.babel.pattern'),
+                loader: 'babel?' + loaders.babel,
+                exclude: Config.get('js.loaders.babel.exclude')
+            }, {
+                test: /.(css|scss)$/,
+                loader: 'style!css!sass'
+            }, {
+                test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/,
+                loader: 'file?name=[name].[ext]'
+            }, {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack?{bypassOnDebug: true, progressive: true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
+                ]
+            }]
         }
     };
 
