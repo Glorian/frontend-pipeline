@@ -3,6 +3,9 @@
 let gulp = require('gulp');
 let _ = require('lodash');
 
+let Logger = require('./Logger');
+let Config = require('./Config');
+
 /**
  * Main Builder class
  */
@@ -12,8 +15,8 @@ class Builder {
      * @constructor
      */
     constructor() {
-        this.config = require('./Config');
-        this.Log = require('./Logger');
+        this.config = new Config;
+        this.Log = new Logger;
         this.Notification = require('./Notification');
         this.Task = require('./Task')(this);
         this.tasks = this.config.get('tasks');

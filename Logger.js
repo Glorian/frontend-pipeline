@@ -1,55 +1,72 @@
-var fs = require('fs');
-var gutil = require('gulp-util');
+"use strict";
+
+let fs = require('fs');
+let gutil = require('gulp-util');
 
 /**
  *  Logger class
  */
-var Logger = function() {};
+class Logger {
 
-/**
- *  Log a header
- */
-Logger.heading = function(heading) {
-    console.log('');
+    /**
+     * Log header
+     *
+     * @param heading
+     * @returns {Logger}
+     */
+    heading(heading) {
+        console.log('');
 
-    console.log(
-        gutil.colors.black(gutil.colors.bgGreen(heading))
-    );
+        console.log(
+            gutil.colors.black(gutil.colors.bgGreen(heading))
+        );
 
-    return Logger;
-};
+        return this;
+    }
 
-/**
- *  Print simple message
- */
-Logger.message = function(message) {
-    console.log(message);
+    /**
+     * Print simple message
+     *
+     * @param {string} message
+     * @returns {Logger}
+     */
+    message(message) {
+        console.log(message);
 
-    return Logger;
-};
+        return this;
+    }
 
-/**
- *  Log a bunch of files
- */
-Logger.files = function(files, checkForFiles) {
-    files = Array.isArray(files) ? files : [files];
-    var spacer = '  - ';
+    /**
+     * Log a bunch of files
+     *
+     * @param files
+     * @param checkForFiles
+     * @returns {Logger}
+     */
+    files(files, checkForFiles) {
+        files = Array.isArray(files) ? files : [files];
 
-    files.forEach(function(file) {
-        if (!checkForFiles || assertFileExists(file)) {
-            console.log(spacer + file);
-        } else {
-            console.log(spacer + gutil.colors.bgRed(file) + ' <-- Not Found');
-        }
-    });
+        let spacer = '  - ';
 
-    console.log();
+        files.forEach(file => {
+            if (!checkForFiles || Logger.assertFileExists(file)) {
+                console.log(spacer + file);
+            } else {
+                console.log(spacer + gutil.colors.bgRed(file) + ' <-- Not Found');
+            }
+        });
 
-    return Logger;
-};
+        console.log();
 
-var assertFileExists = function(file) {
-    return file.match(/\*/) || fs.existsSync(file);
-};
+        return this;
+    }
+
+    /**
+     * Check if file exists
+     */
+    static assertFileExists(file) {
+        return file.match(/\*/) || fs.existsSync(file);
+    }
+}
 
 module.exports = Logger;
