@@ -77,13 +77,25 @@ Config.prototype.getPath = function (path) {
         current = this.config,
         segments = path.split('.');
 
-    if (segments[0] == 'assets' || segments[0] == 'public') {
+    if (segments[0] == 'root') {
         basePath = this.config[segments.shift() + 'Path'];
+    }
+
+    if (segments[0] == 'assets' || segments[0] == 'public') {
+        var innerPath = this.config[segments.shift() + 'Path'];
+
+        basePath = !!basePath
+            ? p.join(basePath, innerPath)
+            : innerPath;
     }
 
     segments.forEach(function (segment) {
         current = current[segment];
     });
+
+    current = segments.length
+        ? current
+        : '';
 
     return p.join(basePath, current);
 };
