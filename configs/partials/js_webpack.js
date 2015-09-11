@@ -55,6 +55,7 @@ var partial = function (Config) {
                 },
                 {test: /.(css|scss)$/, loader: 'style!css!sass'},
                 {test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/, loader: 'file?name=[name].[ext]'},
+                {test: /\.html$/, loader: 'file'},
                 {
                     test: /\.(jpe?g|png|gif|svg)$/i,
                     loaders: [
