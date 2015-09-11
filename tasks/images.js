@@ -5,8 +5,8 @@ var pngquant = require('imagemin-pngquant');
 
 var $ = Builder.Plugins;
 var config = Builder.config;
-var srcPath = config.getPath('assets.images.folder') + '/**/*.+(jpeg|jpg|png|gif|svg)';
-var outputPath = config.getPath('public.images.outputFolder');
+var srcPath = config.getPath('root.assets.images.folder') + '/**/*.+(jpeg|jpg|png|gif|svg)';
+var outputPath = config.getPath('root.public.images.outputFolder');
 
 /**
  * Optimize images
