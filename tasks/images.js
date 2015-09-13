@@ -1,20 +1,22 @@
-var gulp = require('gulp');
-var _ = require('lodash');
-var Builder = require('../');
-var pngquant = require('imagemin-pngquant');
+"use strict";
 
-var $ = Builder.Plugins;
-var config = Builder.config;
-var srcPath = config.getPath('root.assets.images.folder') + '/**/*.+(jpeg|jpg|png|gif|svg)';
-var outputPath = config.getPath('root.public.images.outputFolder');
+let _ = require('lodash');
+let gulp = require('gulp');
+let Builder = require('../');
+let pngquant = require('imagemin-pngquant');
+
+let $ = Builder.Plugins;
+let config = Builder.config;
+let srcPath = config.getPath('root.assets.images.folder') + '/**/*.+(jpeg|jpg|png|gif|svg)';
+let outputPath = config.getPath('root.public.images.outputFolder');
 
 /**
  * Optimize images
  *
  * @returns {*}
  */
-var imagesTask = function () {
-    var name = _.capitalize(this.name),
+let imagesTask = function() {
+    let name = _.capitalize(this.name),
         options = config.get('images.options');
 
     this.log(srcPath, outputPath);

@@ -1,54 +1,55 @@
-var gulp 	= require('gulp');
-var _ 		= require('lodash');
-var config;
+"use strict";
+
+let gulp = require('gulp');
+let _ = require('lodash');
+
+let Logger = require('./Logger');
+let Config = require('./Config');
 
 /**
- * Set Builder constructor
- *
- * @constructor
+ * Main Builder class
  */
-var Builder = function() {};
+class Builder {
 
-Builder.config 			= config = require('./Config');
-Builder.Log 			= require('./Logger');
-Builder.Notification 	= require('./Notification');
-Builder.Task 			= require('./Task')(Builder);
-Builder.tasks 			= config.get('tasks');
-Builder.Plugins 		= require('gulp-load-plugins')();
+    /**
+     * @constructor
+     */
+    constructor() {
+        this.config = new Config;
+        this.Log = new Logger;
+        this.Notification = require('./Notification');
+        this.Task = require('./Task')(this);
+        this.tasks = this.config.get('tasks');
+        this.Plugins = require('gulp-load-plugins')();
+    }
 
-/**
- * Execute Builder
- */
-Builder.start = function() {
-	require('require-dir')('./tasks', { recurse: true });
+    /**
+     * Execute Builder
+     */
+    start() {
+        require('require-dir')('./tasks/', {
+            recurse: true
+        });
 
-	runTasks.call(Builder);
-};
+        this.tasks.forEach(task => {
+            if (_.contains(gulp.task, task.name)) return;
 
-/**
- * Add new task to Builder queue
- *
- * @param name
- * @param callback
- * @returns {*}
- */
-Builder.addTask = function(name, callback) {
- 	return new Builder.Task(name, callback);
-};
+            gulp.task(task.name, done => {
+                return this.Task.find(task.name).run(done);
+            });
+        });
+    }
 
-/**
- * Helper function for exporting all tasks to Gulp
- */
-var runTasks = function() {
-	var tasks = this.tasks;
+    /**
+     * Create new custom gulp task
+     *
+     * @param {string} name
+     * @param {function} callback
+     * @returns {*}
+     */
+    addTask(name, callback) {
+        return new this.Task(name, callback);
+    }
+}
 
-	tasks.forEach(function(task) {
-		if(_.contains(gulp.task, task.name)) return;
-
-		gulp.task(task.name, function(done) {
-            return Builder.Task.find(task.name).run(done);
-		});
-	});
-};
-
-module.exports = Builder;
+module.exports = new Builder;

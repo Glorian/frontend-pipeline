@@ -1,20 +1,25 @@
-var gulp = require('gulp');
-var path = require('path');
-var _ = require('lodash');
-var Builder = require('../');
+"use strict";
 
-var $ = Builder.Plugins;
-var config = Builder.config;
+let _ = require('lodash');
+let gulp = require('gulp');
+let path = require('path');
+let Builder = require('../');
 
-gulp.task('revision:report', function () {
-    var files = '**/*-' + _.repeat('[a-z,0-9]', 8) + '*.*';
+let $ = Builder.Plugins;
+let config = Builder.config;
 
-    gulp
-        .src([
-            path.join(config.getPath('root.public'), files),
-            '!./**/rev-manifest.json'
-        ])
-        .pipe($.sizereport({
-            gzip: true
-        }));
+gulp.task('revision:report', function() {
+    let files = '**/*-' + _.repeat('[a-z,0-9]', 8) + '*.*';
+
+    return (
+        gulp
+            .src([
+                path.join(config.getPath('root.public'), files),
+                '!./**/rev-manifest.json'
+            ])
+            .pipe($.sizereport({
+                gzip: true
+            }))
+    );
+
 });
