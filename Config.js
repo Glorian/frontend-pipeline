@@ -23,11 +23,14 @@ class Config {
     _requireConfigs() {
         let parent = module.parent,
             parentFile = parent.filename,
-            parentDir = p.dirname(parentFile);
+            parentDir = p.dirname(parentFile),
+            currentFolder = p.resolve(parentDir, this.folder);
 
         require('fs')
-            .readdirSync(p.resolve(parentDir, this.folder))
-            .forEach(this._requireConfigFile.bind(this));
+            .readdirSync(currentFolder)
+            .forEach(file => this._requireConfigFile(
+                p.join(currentFolder, file)
+            ));
     }
 
     /**
@@ -39,7 +42,7 @@ class Config {
     _requireConfigFile(file) {
         this.config = _.merge(
             this.config,
-            require(p.resolve(this.folder, file))(this)
+            require(file)(this)
         );
     }
 
