@@ -9,7 +9,7 @@ var ManifestWebpack = require('../../lib/webpackManifest');
  *
  * @param Config
  */
-var partial = function(Config) {
+var partial = function (Config) {
     var production = Config.get('production');
     var filename = production ? '[name]-[hash].js' : '[name].js';
     var loaders = {
@@ -17,7 +17,7 @@ var partial = function(Config) {
     };
 
     var webpackConfig = {
-        context: path.resolve(Config.getPath('assets.js.folder')),
+        context: path.resolve(Config.getPath('root.assets.js.folder')),
         plugins: [
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendor',
@@ -36,31 +36,34 @@ var partial = function(Config) {
             bundle: Config.get('js.entry')
         },
         output: {
-            path: Config.getPath('public.js.outputFolder'),
+            path: Config.getPath('root.public.js.outputFolder'),
             filename: filename,
-            publicPath: Config.get('js.outputFolder')
+            publicPath: path.join(
+                Config.get('js.outputFolder'),
+                '/'
+            )
         },
         resolveLoader: {
             root: path.join(path.dirname(module.filename), '../..', 'node_modules')
         },
         module: {
-            loaders: [{
-                test: Config.get('js.loaders.babel.pattern'),
-                loader: 'babel?' + loaders.babel,
-                exclude: Config.get('js.loaders.babel.exclude')
-            }, {
-                test: /.(css|scss)$/,
-                loader: 'style!css!sass'
-            }, {
-                test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/,
-                loader: 'file?name=[name].[ext]'
-            }, {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack?{bypassOnDebug: true, progressive: true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
-                ]
-            }]
+            loaders: [
+                {
+                    test: Config.get('js.loaders.babel.pattern'),
+                    loader: 'babel?' + loaders.babel,
+                    exclude: Config.get('js.loaders.babel.exclude')
+                },
+                {test: /.(css|scss)$/, loader: 'style!css!sass'},
+                {test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/, loader: 'file?name=[name].[ext]'},
+                {test: /\.html$/, loader: 'file'},
+                {
+                    test: /\.(jpe?g|png|gif|svg)$/i,
+                    loaders: [
+                        'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                        'image-webpack?{bypassOnDebug: true, progressive: true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
+                    ]
+                }
+            ]
         }
     };
 
@@ -85,8 +88,8 @@ var partial = function(Config) {
     if (production) {
         webpackConfig.plugins.push(
             new ManifestWebpack({
-                publicPath: Config.get('js.outputFolder'),
-                dest: path.join(Config.get('publicPath'), Config.get('versioning.buildFolder'))
+                publicPath: Config.getPath('public.js.outputFolder'),
+                dest: Config.getPath('root.public.versioning.buildFolder')
             }),
             new webpack.DefinePlugin({
                 'process.env': {

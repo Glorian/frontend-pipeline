@@ -4,8 +4,8 @@ var Builder = require('../');
 
 var $ = Builder.Plugins;
 var config = Builder.config;
-var srcPath = config.getPath('assets.fonts.folder') + '/**/*.+(woff|woff2|ttf|eot|svg)';
-var outputPath = config.getPath('public.fonts.outputFolder');
+var srcPath = config.getPath('root.assets.fonts.folder') + '/**/*.+(woff|woff2|ttf|eot|svg)';
+var outputPath = config.getPath('root.public.fonts.outputFolder');
 
 /**
  * Copy all fonts to public directory

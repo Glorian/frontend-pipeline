@@ -5,8 +5,8 @@ var Builder = require('../');
 
 var $ = Builder.Plugins;
 var config = Builder.config;
-var srcPath = config.getPath('assets.css.sass.folder') + '/**/*.+(sass|scss)';
-var outputPath = config.getPath('public.css.outputFolder');
+var srcPath = config.getPath('root.assets.css.sass.folder') + '/**/*.+(sass|scss)';
+var outputPath = config.getPath('root.public.css.outputFolder');
 
 /**
  * Compile sass styles

@@ -6,6 +6,7 @@ var gutils = require('gulp-util');
 var config = {
     tasks: [],
     production: !!gutils.env.production,
+    rootPath: '',
     assetsPath: 'assets',
     publicPath: 'public',
     sourcemaps: true,

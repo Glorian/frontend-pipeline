@@ -4,8 +4,8 @@ var Builder = require('../');
 
 var $ = Builder.Plugins;
 var config = Builder.config;
-var srcPath = config.getPath('assets.css.folder') + '/**/*.css';
-var publicPath = config.getPath('public.css.outputFolder');
+var srcPath = config.getPath('root.assets.css.folder') + '/**/*.css';
+var publicPath = config.getPath('root.public.css.outputFolder');
 
 var stylesTask = function() {
     var name = _.capitalize(this.name);
