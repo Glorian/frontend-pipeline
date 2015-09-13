@@ -1,9 +1,11 @@
-var gutils = require('gulp-util');
+"use strict";
+
+let gutils = require('gulp-util');
 
 /**
  *  Default configuration for Builder module
  */
-var config = {
+let config = {
     tasks: [],
     production: !!gutils.env.production,
     rootPath: '',
@@ -53,9 +55,7 @@ var config = {
             folder: 'sass',
 
             options: {
-                outputStyle: gutils.env.production
-                    ? 'compressed'
-                    : 'nested'
+                outputStyle: gutils.env.production ? 'compressed' : 'nested'
             }
         },
         less: {

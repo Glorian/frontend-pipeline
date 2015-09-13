@@ -1,82 +1,80 @@
-var notify = require('gulp-notify');
+"use strict";
+
+let notify = require('gulp-notify');
 
 /**
  * New Notification instance
- *
- * @constructor
  */
-var Notification = function() {
-	this.title = 'SLT Builder';
+class Notification {
+    constructor() {
+        this.title = 'Frontend Pipeline';
 
-	if (arguments.length) {
-		return this.message(arguments[0]);
-	}
-};
+        if (arguments.length) {
+            return this.message(arguments[0]);
+        }
+    }
 
-var n = Notification.prototype;
+    /**
+     * Show regular message
+     *
+     * @param message
+     * @returns {*}
+     */
+    message(message) {
+        return notify({
+            title: this.title,
+            message: message,
+            onLast: true
+        });
+    }
 
-/**
- * Show regular message
- *
- * @param message
- * @returns {*}
- */
-n.message = function(message) {
-	return notify({
-		title: this.title,
-		message: message,
-		onLast: true
-	});
-};
+    /**
+     * Show error message
+     *
+     * @param e
+     * @param message
+     */
+    error(e, message) {
+        notify.onError({
+            title: this.title,
+            message: message + ': <%= error.message %>',
+            icon: __dirname + '/icons/fail.png',
+            onLast: true
+        })(e);
 
-/**
- * Show error message
- *
- * @param e
- * @param message
- */
-n.error = function(e, message) {
-	notify.onError({
-		title: this.title,
-		message: message + ': <%= error.message %>',
-		icon: __dirname + '/icons/fail.png',
-		onLast: true
-	})(e);
+        console.log(e);
+    }
 
-	console.log(e);
-};
+    /**
+     * Show success message when tests passed
+     *
+     * @param framework
+     * @returns {*}
+     */
+    forPassedTests(framework) {
+        return notify({
+            title: 'Green!',
+            message: 'Your ' + framework + ' tests passed!',
+            icon: __dirname + '/icons/pass.png',
+            onLast: true
+        });
+    }
 
-/**
- * Show success message when tests passed
- *
- * @param framework
- * @returns {*}
- */
-n.forPassedTests = function(framework) {
-    return notify({
-        title: 'Green!',
-        message: 'Your ' + framework + ' tests passed!',
-        icon: __dirname + '/icons/pass.png',
-        onLast: true
-    });
-};
-
-/**
- * Show fail message when test fails
- *
- * @param e
- * @param framework
- * @returns {*}
- */
-n.forFailedTests = function(e, framework) {
-    return notify.onError({
-        title: 'Red!',
-        message: 'Your ' + framework + ' tests failed!',
-        icon: __dirname + '/icons/fail.png',
-        onLast: true
-    })(e);
-};
-
+    /**
+     * Show fail message when test fails
+     *
+     * @param e
+     * @param framework
+     * @returns {*}
+     */
+    forFailedTests(e, framework) {
+        return notify.onError({
+            title: 'Red!',
+            message: 'Your ' + framework + ' tests failed!',
+            icon: __dirname + '/icons/fail.png',
+            onLast: true
+        })(e);
+    }
+}
 
 module.exports = Notification;
-

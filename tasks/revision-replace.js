@@ -1,15 +1,17 @@
-var gulp = require('gulp');
-var path = require('path');
-var Builder = require('../');
+"use strict";
 
-var $ = Builder.Plugins;
-var config = Builder.config;
+let gulp = require('gulp');
+let path = require('path');
+let Builder = require('../');
+
+let $ = Builder.Plugins;
+let config = Builder.config;
 
 /**
  * Update asset references with revisioned filenames in compiled css + js
  */
-gulp.task('revision:replace', function () {
-    var outputFolder = config.getPath('root.public'),
+gulp.task('revision:replace', function() {
+    let outputFolder = config.getPath('root.public'),
         manifest = gulp.src(
             path.join(
                 config.getPath('root.public.versioning.buildFolder'),
@@ -17,11 +19,13 @@ gulp.task('revision:replace', function () {
             )
         );
 
-    gulp
-        .src(path.join(outputFolder, '**/*.{css,js}'))
-        .pipe($.revReplace({
-            manifest: manifest
-        }))
-        .pipe(gulp.dest(outputFolder));
+    return (
+        gulp
+            .src(path.join(outputFolder, '**/*.{css,js}'))
+            .pipe($.revReplace({
+                manifest: manifest
+            }))
+            .pipe(gulp.dest(outputFolder))
+    );
 
 });

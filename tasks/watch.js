@@ -1,19 +1,23 @@
-var gulp = require('gulp');
-var _ = require('lodash');
-var Builder = require('../');
-var $ = Builder.Plugins;
+"use strict";
 
-gulp.task('watch', function () {
-    var tasks = _.sortBy(Builder.tasks, 'name');
-    var mergedTasks = {};
+let _ = require('lodash');
+let gulp = require('gulp');
+let Builder = require('../');
+
+let $ = Builder.Plugins;
+let config = Builder.config;
+
+gulp.task('watch', function() {
+    let tasks = _.sortBy(Builder.tasks, 'name'),
+        mergedTasks = {};
 
     if (isWatchingWebpack(tasks)) {
-        Builder.config.set('js.webpack.watching', true);
+        config.set('js.webpack.watching', true);
 
         gulp.start('webpack');
     }
 
-    tasks.forEach(function (task) {
+    tasks.forEach(task => {
         if (task.name == 'webpack') return;
 
         if (task.name in mergedTasks) {
@@ -26,17 +30,21 @@ gulp.task('watch', function () {
         };
     });
 
-    _.sortBy(mergedTasks, 'name').forEach(function (task) {
+    _.sortBy(mergedTasks, 'name').forEach(task => {
         if (task.watchers.length > 0) {
-            $.watch(task.watchers, $.batch(Builder.config.get('batchOptions'), function (events) {
-                events.on('end', gulp.start(task.name));
-            }));
+            $.watch(
+                task.watchers,
+                $.batch(
+                    config.get('batchOptions'),
+                    events => events.on('end', gulp.start(task.name))
+                )
+            );
         }
     });
 });
 
-var isWatchingWebpack = function (tasks) {
-    var webpackTask = _.find(tasks, 'name', 'webpack');
+let isWatchingWebpack = tasks => {
+    let webpackTask = _.find(tasks, 'name', 'webpack');
 
     if (webpackTask) {
         return webpackTask.watchers.length;

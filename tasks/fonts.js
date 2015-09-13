@@ -1,19 +1,21 @@
-var gulp = require('gulp');
-var _ = require('lodash');
-var Builder = require('../');
+"use strict";
 
-var $ = Builder.Plugins;
-var config = Builder.config;
-var srcPath = config.getPath('root.assets.fonts.folder') + '/**/*.+(woff|woff2|ttf|eot|svg)';
-var outputPath = config.getPath('root.public.fonts.outputFolder');
+let _ = require('lodash');
+let gulp = require('gulp');
+let Builder = require('../');
+
+let $ = Builder.Plugins;
+let config = Builder.config;
+let srcPath = config.getPath('root.assets.fonts.folder') + '/**/*.+(woff|woff2|ttf|eot|svg)';
+let outputPath = config.getPath('root.public.fonts.outputFolder');
 
 /**
  * Copy all fonts to public directory
  *
  * @returns {*}
  */
-var fontsTask = function () {
-    var name = _.capitalize(this.name);
+var fontsTask = function() {
+    let name = _.capitalize(this.name);
 
     this.log(srcPath, outputPath);
 
