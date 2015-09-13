@@ -14,9 +14,6 @@ var config = {
         limit: undefined,
         timeout: 1000
     },
-    cleanOptions: {
-        contentOnly: true
-    },
     fonts: {
         folder: 'fonts',
         outputFolder: 'fonts'
