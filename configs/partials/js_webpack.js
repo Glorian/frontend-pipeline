@@ -39,7 +39,7 @@ var partial = function (Config) {
             path: Config.getPath('root.public.js.outputFolder'),
             filename: filename,
             publicPath: path.join(
-                Config.getPath('public.js.outputFolder'),
+                Config.get('js.outputFolder'),
                 '/'
             )
         },
