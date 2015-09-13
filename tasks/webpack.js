@@ -1,18 +1,20 @@
-var gulp = require('gulp');
-var webpack = require('webpack');
-var logger = require('../lib/webpackLogger');
-var Builder = require('../');
+"use strict";
+
+let gulp = require('gulp');
+let logger = require('../lib/webpackLogger');
+let Builder = require('../');
+let webpack = require('webpack');
 
 /**
  * Webpack compiler task
  *
  * @param done
  */
-var webpackTask = function(done) {
-    var compiler = webpack(Builder.config.get('js.webpack')),
+let webpackTask = function(done) {
+    let compiler = webpack(Builder.config.get('js.webpack')),
         watch = !!Builder.config.get('js.webpack.watching');
 
-    var webpackCallback = function(err, stats) {
+    let webpackCallback = (err, stats) => {
         logger(err, stats);
 
         !watch && done();

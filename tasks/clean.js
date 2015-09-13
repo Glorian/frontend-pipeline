@@ -1,11 +1,13 @@
-var gulp = require('gulp');
-var Builder = require('../');
-var del = require('del');
+"use strict";
 
-var config = Builder.config;
+let del = require('del');
+let gulp = require('gulp');
+let Builder = require('../');
 
-var cleanTask = function (done) {
-    var cleanDirs = [];
+let config = Builder.config;
+
+let cleanTask = function(done) {
+    let cleanDirs = [];
 
     cleanDirs.push(
         config.getPath('root.public.js.outputFolder'),

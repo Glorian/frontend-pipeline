@@ -29,7 +29,7 @@ class Task {
     /**
      * Find task by name
      *
-     * @param  {String} name
+     * @param  {string} name
      * @return {Object}
      */
     static find(name) {
@@ -43,7 +43,7 @@ class Task {
     /**
      * Describe the task
      *
-     * @param  {Function} definition
+     * @param  {function} definition
      * @return {Task}
      */
     describe(definition) {
@@ -71,8 +71,8 @@ class Task {
     /**
      * Set a path regex to watch changes
      *
-     * @param  {Regexp} regex
-     * @param  {String} category
+     * @param  {object} regex
+     * @param  {string} category
      * @return {Task}
      */
     watch(regex, category) {

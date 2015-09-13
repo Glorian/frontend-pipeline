@@ -1,13 +1,15 @@
-var gulp = require('gulp');
-var _ = require('lodash');
-var Builder = require('../');
-var inSequence = require('run-sequence');
-var taskSequence = require('../lib/taskSequence');
+"use strict";
 
-gulp.task('default', function(cb) {
-    var args = taskSequence(Builder.tasks);
+let _ = require('lodash');
+let gulp = require('gulp');
+let Builder = require('../');
+let inSequence = require('run-sequence');
+let taskSequence = require('../lib/taskSequence');
 
-    args.push(cb);
+gulp.task('default', function(done) {
+    let args = taskSequence(Builder.tasks);
+
+    args.push(done);
 
     inSequence.apply(this, args);
 });

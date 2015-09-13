@@ -1,14 +1,16 @@
-var gulp = require('gulp');
-var path = require('path');
-var Builder = require('../');
-var vinylPath = require('vinyl-paths');
-var del = require('del');
+"use strict";
 
-var $ = Builder.Plugins;
-var config = Builder.config;
+let del = require('del');
+let gulp = require('gulp');
+let path = require('path');
+let Builder = require('../');
+let vinylPath = require('vinyl-paths');
 
-gulp.task('revision:css', function (cb) {
-    var outputFolder = config.get('rootPath')
+let $ = Builder.Plugins;
+let config = Builder.config;
+
+gulp.task('revision:css', function(done) {
+    let outputFolder = config.get('rootPath')
             ? config.get('rootPath')
             : config.get('publicPath'),
         cssFiles = vinylPath();
@@ -27,9 +29,7 @@ gulp.task('revision:css', function (cb) {
                 {merge: true}
             ))
             .pipe(gulp.dest(''))
-            .on('end', function () {
-                del(cssFiles.paths, cb);
-            })
+            .on('end', () => del(cssFiles.paths, done))
     );
 
 });

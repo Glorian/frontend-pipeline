@@ -1,14 +1,16 @@
-var gulp = require('gulp');
-var inSequence = require('run-sequence');
-var Builder = require('../');
+"use strict";
+
+let gulp = require('gulp');
+let Builder = require('../');
+let inSequence = require('run-sequence');
 
 /**
  * Execute bunch of revision tasks
  *
  * @param done
  */
-var revisionTask = function(done) {
-    var args = [];
+let revisionTask = function(done) {
+    let args = [];
 
     args.push('revision:css');
     args.push('revision:replace');

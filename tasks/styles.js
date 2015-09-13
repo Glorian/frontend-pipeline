@@ -1,26 +1,28 @@
-var gulp = require('gulp');
-var _ = require('lodash');
-var Builder = require('../');
+"use strict";
 
-var $ = Builder.Plugins;
-var config = Builder.config;
-var srcPath = config.getPath('root.assets.css.folder') + '/**/*.css';
-var publicPath = config.getPath('root.public.css.outputFolder');
+let _ = require('lodash');
+let gulp = require('gulp');
+let Builder = require('../');
 
-var stylesTask = function() {
-    var name = _.capitalize(this.name);
+let $ = Builder.Plugins;
+let config = Builder.config;
+let srcPath = config.getPath('root.assets.css.folder') + '/**/*.css';
+let publicPath = config.getPath('root.public.css.outputFolder');
+
+let stylesTask = function() {
+    let name = _.capitalize(this.name);
 
     this.log(srcPath, publicPath);
 
     return (
         gulp
-        .src(srcPath)
-        .pipe($.if(config.get('sourcemaps'), $.sourcemaps.init()))
-        .pipe($.concat(config.get('css.styles.concatFilename')))
-        .pipe($.if(config.get('production'), $.minifyCss()))
-        .pipe($.if(config.get('sourcemaps'), $.sourcemaps.write()))
-        .pipe(gulp.dest(publicPath))
-        .pipe(new Builder.Notification(name + ' concatenated!'))
+            .src(srcPath)
+            .pipe($.if(config.get('sourcemaps'), $.sourcemaps.init()))
+            .pipe($.concat(config.get('css.styles.concatFilename')))
+            .pipe($.if(config.get('production'), $.minifyCss()))
+            .pipe($.if(config.get('sourcemaps'), $.sourcemaps.write()))
+            .pipe(gulp.dest(publicPath))
+            .pipe(new Builder.Notification(name + ' concatenated!'))
     );
 };
 
