@@ -9,7 +9,7 @@ let $ = Builder.Plugins;
 let config = Builder.config;
 
 gulp.task('revision:report', function() {
-    let files = '**/*-' + _.repeat('[a-z,0-9]', 8) + '*.*';
+    let files = `**/*-${_.repeat('[a-z,0-9]', 8)}*.*`;
 
     return (
         gulp
