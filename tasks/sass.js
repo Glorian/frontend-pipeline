@@ -30,7 +30,7 @@ let sassTask = function() {
             .pipe($.if(config.get('production'), $.minifyCss()))
             .pipe($.if(config.get('sourcemaps'), $.sourcemaps.write()))
             .pipe(gulp.dest(outputPath))
-            .pipe(new Builder.Notification(name + ' Compiled!'))
+            .pipe(new Builder.Notification(`${name} Compiled!`))
     );
 };
 

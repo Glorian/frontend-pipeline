@@ -12,9 +12,11 @@ let inSequence = require('run-sequence');
 let revisionTask = function(done) {
     let args = [];
 
-    args.push('revision:css');
-    args.push('revision:replace');
-    args.push('revision:report');
+    args.push(
+        'revision:css',
+        'revision:replace',
+        'revision:report'
+    );
 
     args.push(done);
 
@@ -23,4 +25,4 @@ let revisionTask = function(done) {
 
 Builder
     .addTask('revision', revisionTask)
-    .dev(true);
+    .production(true);

@@ -7,7 +7,7 @@ let pngquant = require('imagemin-pngquant');
 
 let $ = Builder.Plugins;
 let config = Builder.config;
-let srcPath = config.getPath('root.assets.images.folder') + '/**/*.+(jpeg|jpg|png|gif|svg)';
+let srcPath = `${config.getPath('root.assets.images.folder')}/**/*.+(jpeg|jpg|png|gif|svg)`;
 let outputPath = config.getPath('root.public.images.outputFolder');
 
 /**
@@ -32,7 +32,7 @@ let imagesTask = function() {
             .pipe($.changed(outputPath)) // Ignore unchanged files
             .pipe($.imagemin(options)) // Optimize
             .pipe(gulp.dest(outputPath))
-            .pipe(new Builder.Notification(name + ' Optimized!'))
+            .pipe(new Builder.Notification(`${name} Optimized!`))
     );
 };
 

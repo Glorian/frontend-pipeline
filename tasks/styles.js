@@ -22,7 +22,7 @@ let stylesTask = function() {
             .pipe($.if(config.get('production'), $.minifyCss()))
             .pipe($.if(config.get('sourcemaps'), $.sourcemaps.write()))
             .pipe(gulp.dest(publicPath))
-            .pipe(new Builder.Notification(name + ' concatenated!'))
+            .pipe(new Builder.Notification(`${name} concatenated!`))
     );
 };
 

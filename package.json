@@ -1,6 +1,6 @@
 {
   "name": "frontend-pipeline",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Simple Gulp & Webpack frontend builder",
   "main": "index.js",
   "scripts": {
@@ -40,6 +40,7 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
+    "html-loader": "^0.3.0",
     "image-webpack-loader": "^1.6.1",
     "imagemin": "^3.2.0",
     "imagemin-pngquant": "^4.2.0",

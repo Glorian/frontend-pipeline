@@ -37,8 +37,8 @@ class Notification {
     error(e, message) {
         notify.onError({
             title: this.title,
-            message: message + ': <%= error.message %>',
-            icon: __dirname + '/icons/fail.png',
+            message: `${message}: <%= error.message %>`,
+            icon: `${__dirname}/icons/fail.png`,
             onLast: true
         })(e);
 
@@ -54,8 +54,8 @@ class Notification {
     forPassedTests(framework) {
         return notify({
             title: 'Green!',
-            message: 'Your ' + framework + ' tests passed!',
-            icon: __dirname + '/icons/pass.png',
+            message: `Your ${framework} tests passed!`,
+            icon: `${__dirname}/icons/pass.png`,
             onLast: true
         });
     }
@@ -70,8 +70,8 @@ class Notification {
     forFailedTests(e, framework) {
         return notify.onError({
             title: 'Red!',
-            message: 'Your ' + framework + ' tests failed!',
-            icon: __dirname + '/icons/fail.png',
+            message: `Your ${framework} tests failed!`,
+            icon: `${__dirname}/icons/fail.png`,
             onLast: true
         })(e);
     }
