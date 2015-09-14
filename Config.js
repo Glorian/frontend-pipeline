@@ -82,20 +82,18 @@ class Config {
             segments = path.split('.');
 
         if (segments[0] == 'root') {
-            basePath = this.config[segments.shift() + 'Path'];
+            basePath = this.config[`${segments.shift()}Path`];
         }
 
         if (segments[0] == 'assets' || segments[0] == 'public') {
-            let innerPath = this.config[segments.shift() + 'Path'];
+            let innerPath = this.config[`${segments.shift()}Path`];
 
             basePath = !!basePath
                 ? p.join(basePath, innerPath)
                 : innerPath;
         }
 
-        segments.forEach(function (segment) {
-            current = current[segment];
-        });
+        segments.forEach(segment => current = current[segment]);
 
         current = segments.length
             ? current

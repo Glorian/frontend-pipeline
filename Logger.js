@@ -1,5 +1,6 @@
 "use strict";
 
+let _ = require('lodash');
 let fs = require('fs');
 let gutil = require('gulp-util');
 
@@ -44,7 +45,9 @@ class Logger {
      * @returns {Logger}
      */
     files(files, checkForFiles) {
-        files = Array.isArray(files) ? files : [files];
+        files = _.isArray(files)
+            ? files
+            : [files];
 
         let spacer = '  - ';
 
@@ -52,7 +55,7 @@ class Logger {
             if (!checkForFiles || Logger.assertFileExists(file)) {
                 console.log(spacer + file);
             } else {
-                console.log(spacer + gutil.colors.bgRed(file) + ' <-- Not Found');
+                console.log(`${spacer} ${gutil.colors.bgRed(file)} <-- Not Found`);
             }
         });
 

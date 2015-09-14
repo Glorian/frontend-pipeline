@@ -19,7 +19,7 @@ class Task {
         this.ordering = 999;
         this.parallels = false;
         this.parallelGroup = false;
-        this.development = false;
+        this.prod = false;
 
         if (description) {
             this.describe(description);
@@ -33,11 +33,9 @@ class Task {
      * @return {Object}
      */
     static find(name) {
-        let tasks = _.where(Builder.tasks, {
-            name
-        });
+        let tasks = _.where(Builder.tasks, {name});
 
-        return tasks[Builder.config.get('activeTasks.' + name)];
+        return tasks[Builder.config.get(`activeTasks.${name}`)];
     }
 
     /**
@@ -63,7 +61,7 @@ class Task {
         Builder.tasks.push(this);
 
         Builder.config.set('activeTasks', Builder.config.get('activeTasks') || {});
-        Builder.config.set('activeTasks.' + this.name, 0);
+        Builder.config.set(`activeTasks.${this.name}`, 0);
 
         return this;
     }
@@ -124,11 +122,11 @@ class Task {
     /**
      * Execute task only in dev mode
      *
-     * @param  {boolean} devOnly
+     * @param  {boolean} prodOnly
      * @return {Task}
      */
-    dev(devOnly) {
-        this.development = !!devOnly;
+    production(prodOnly) {
+        this.prod = !!prodOnly;
 
         return this;
     }
@@ -162,10 +160,8 @@ class Task {
      * @param  {string} output
      */
     log(src, output) {
-        let task = this.name.substr(0, 1).toUpperCase() + this.name.substr(1);
-
         Builder.Log
-            .heading('Fetching ' + task + ' Source Files...')
+            .heading(`Fetching ${_.capitalize(this.name)} Source Files...`)
             .files(src.path ? src.path : src, true);
 
         if (output) {

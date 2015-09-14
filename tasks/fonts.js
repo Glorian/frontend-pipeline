@@ -6,7 +6,7 @@ let Builder = require('../');
 
 let $ = Builder.Plugins;
 let config = Builder.config;
-let srcPath = config.getPath('root.assets.fonts.folder') + '/**/*.+(woff|woff2|ttf|eot|svg)';
+let srcPath = `${config.getPath('root.assets.fonts.folder')}/**/*.+(woff|woff2|ttf|eot|svg)`;
 let outputPath = config.getPath('root.public.fonts.outputFolder');
 
 /**

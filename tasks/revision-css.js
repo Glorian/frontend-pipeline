@@ -10,9 +10,7 @@ let $ = Builder.Plugins;
 let config = Builder.config;
 
 gulp.task('revision:css', function(done) {
-    let outputFolder = config.get('rootPath')
-            ? config.get('rootPath')
-            : config.get('publicPath'),
+    let outputFolder = config.getPath('root.public'),
         cssFiles = vinylPath();
 
     return (

@@ -57,7 +57,7 @@ let partial = function (Config) {
                 },
                 {test: /.(css|scss)$/, loader: 'style!css!sass'},
                 {test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/, loader: 'file?name=[name].[ext]'},
-                {test: /\.html$/, loader: 'file'},
+                {test: /\.html$/, loader: 'html'},
                 {
                     test: /\.(jpe?g|png|gif|svg)$/i,
                     loaders: [
@@ -90,7 +90,7 @@ let partial = function (Config) {
     if (production) {
         webpackConfig.plugins.push(
             new ManifestWebpack({
-                publicPath: Config.getPath('public.js.outputFolder'),
+                publicPath: Config.get('js.outputFolder'),
                 dest: Config.getPath('root.public.versioning.buildFolder')
             }),
             new webpack.DefinePlugin({
