@@ -23,7 +23,7 @@ let sassTask = function() {
     return (
         gulp
             .src(srcPath)
-            .pipe($.plumber(error => errorsHandler.apply(this, [error, name])))
+            .pipe($.plumber(error => errorsHandler(error, name)))
             .pipe($.if(config.get('sourcemaps'), $.sourcemaps.init()))
             .pipe($.sass.sync(config.get('css.sass.options')))
             .pipe($.if(config.get('css.autoprefix.enabled'), $.autoprefixer(config.get('css.autoprefix.options'))))
