@@ -20,6 +20,9 @@ let config = {
         folder: 'fonts',
         outputFolder: 'fonts'
     },
+    html: {
+        folder: 'html'
+    },
     images: {
         folder: 'images',
         outputFolder: 'images',
