@@ -41,6 +41,7 @@ let partial = function (Config) {
             path: Config.getPath('root.public.js.outputFolder'),
             filename: filename,
             publicPath: path.join(
+                '/',
                 Config.get('js.outputFolder'),
                 '/'
             )
