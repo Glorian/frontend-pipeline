@@ -125,6 +125,24 @@ $ gulp --production
   
   // Путь к папке с результатом конкатенации стилей (на выходе получаем один файл -  `styles.css`)
   config.set('css.outputFolder', 'path/to/public/css');
+  
+  
+/**
+ * Глобальные зависимости
+ */
+config.set('js.defaultVendors', [
+    'jquery',
+    'bootstrap-sass'
+]);
+
+/**
+ * Глобальные псевдонимы для зависимостей
+ */
+config.set('js.globalVars', {
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery'
+});
 
   
   // Инициализируем сборщик
