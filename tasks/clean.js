@@ -13,7 +13,9 @@ let cleanTask = function(done) {
         config.getPath('root.public.js.outputFolder'),
         config.getPath('root.public.css.outputFolder'),
         config.getPath('root.public.images.outputFolder'),
-        config.getPath('root.public.fonts.outputFolder')
+        config.getPath('root.public.fonts.outputFolder'),
+        config.getPath('root.public') + '/**/*.html'
+
     );
 
     return del(cleanDirs, done);
