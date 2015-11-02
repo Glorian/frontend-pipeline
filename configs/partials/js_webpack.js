@@ -57,6 +57,7 @@ let partial = function (Config) {
                     exclude: Config.get('js.loaders.babel.exclude')
                 },
                 {test: /.(css|scss)$/, loader: 'style!css!sass'},
+                {test: /\.less$/, loader: 'style!css!less'},
                 {test: /.(woff|woff2|svg|ttf|eot)([\?]?.*)$/, loader: 'file?name=[name].[ext]'},
                 {test: /\.html$/, loader: 'html'},
                 {
