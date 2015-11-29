@@ -1,10 +1,11 @@
 "use strict";
 
-let gulp = require('gulp');
-let _ = require('lodash');
+const gulp = require('gulp');
+const _ = require('lodash');
+const require_dir = require('require-dir');
 
-let Logger = require('./Logger');
-let Config = require('./Config');
+const Logger = require('./Logger');
+const Config = require('./Config');
 
 /**
  * Main Builder class
@@ -27,7 +28,7 @@ class Builder {
      * Execute Builder
      */
     start() {
-        require('require-dir')('./tasks/', {
+        require_dir('./tasks/', {
             recurse: true
         });
 

@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require('lodash');
 let gulp = require('gulp');
 let logger = require('../lib/webpackLogger');
 let Builder = require('../');
@@ -11,11 +12,12 @@ let webpack = require('webpack');
  * @param done
  */
 let webpackTask = function(done) {
-    let compiler = webpack(Builder.config.get('js.webpack')),
+    const name = _.capitalize(this.name),
+        compiler = webpack(Builder.config.get('js.webpack')),
         watch = !!Builder.config.get('js.webpack.watching');
 
     let webpackCallback = (err, stats) => {
-        logger(err, stats);
+        logger(name, err, stats);
 
         !watch && done();
     };

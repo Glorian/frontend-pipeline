@@ -5,7 +5,7 @@ let gutils = require('gulp-util');
 /**
  *  Default configuration for Builder module
  */
-let config = {
+module.exports = {
     tasks: [],
     production: !!gutils.env.production,
     rootPath: '',
@@ -74,14 +74,9 @@ let config = {
             babel: {
                 pattern: /\.js$/,
                 exclude: [
-                    /node_modules/,
-                    /bower_components/
-                ],
-
-                options: {
-                    stage: 2,
-                    compact: true
-                }
+                    'node_modules',
+                    'bower_components'
+                ]
             }
         }
     },
@@ -106,5 +101,3 @@ let config = {
         buildFolder: 'build'
     }
 };
-
-module.exports = config;

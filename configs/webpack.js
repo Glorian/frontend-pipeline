@@ -1,10 +1,10 @@
 "use strict";
 
-let path = require('path');
-let gutils = require('gulp-util');
-let webpack = require('webpack');
-let ManifestWebpack = require('../../lib/webpackManifestPlugin');
-let BowerWebpackPlugin = require('bower-webpack-plugin');
+const path = require('path');
+const gutils = require('gulp-util');
+const webpack = require('webpack');
+const ManifestWebpack = require('../../lib/webpackManifestPlugin');
+const BowerWebpackPlugin = require('bower-webpack-plugin');
 
 /**
  * Configuration partial for Webpack module
@@ -12,11 +12,8 @@ let BowerWebpackPlugin = require('bower-webpack-plugin');
  * @param Config
  */
 let partial = function (Config) {
-    let production = Config.get('production'),
-        filename = production ? '[name]-[hash].js' : '[name].js',
-        loaders = {
-            babel: JSON.stringify(Config.get('js.loaders.babel.options'))
-        };
+    const production = Config.get('production'),
+        filename = production ? '[name]-[hash].js' : '[name].js';
 
     let webpackConfig = {
         context: path.resolve(Config.getPath('root.assets.js.folder')),
@@ -28,7 +25,8 @@ let partial = function (Config) {
             new BowerWebpackPlugin({
                 excludes: [/.*\.less$/, /^.+\/[^\/]+\/?\*$/]
             }),
-            new webpack.ProvidePlugin(Config.get('js.globalVars'))
+            new webpack.ProvidePlugin(Config.get('js.globalVars')),
+            new webpack.NoErrorsPlugin()
         ],
         resolve: {
             extensions: ['', '.js']
@@ -52,9 +50,13 @@ let partial = function (Config) {
         module: {
             loaders: [
                 {
-                    test: Config.get('js.loaders.babel.pattern'),
-                    loader: 'babel?' + loaders.babel,
-                    exclude: Config.get('js.loaders.babel.exclude')
+                    test: /\.jsx?$/,
+                    exclude: /(node_modules|bower_components)/,
+                    loader: 'babel',
+                    query: {
+                        presets: ['es2015'],
+                        plugins: ['transform-runtime']
+                    }
                 },
                 {test: /.(css|scss)$/, loader: 'style!css!sass'},
                 {test: /\.less$/, loader: 'style!css!less'},
@@ -101,8 +103,7 @@ let partial = function (Config) {
                 }
             }),
             new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.UglifyJsPlugin(),
-            new webpack.NoErrorsPlugin()
+            new webpack.optimize.UglifyJsPlugin()
         )
     }
 

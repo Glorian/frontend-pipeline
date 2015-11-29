@@ -3,6 +3,10 @@
 let p = require('path');
 let _ = require('lodash');
 
+let nconf = require('nconf');
+
+nconf.file(JSON.stringify(require('./configs/main.js')));
+
 /**
  * Main Config class
  */
